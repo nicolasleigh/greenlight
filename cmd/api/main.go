@@ -4,9 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"flag"
-	"fmt"
 	"log/slog"
-	"net/http"
 	"os"
 	"time"
 
@@ -140,6 +138,7 @@ func main() {
 	// uses the servemux we created above as the handler, has some sensible timeout
 	// settings and writes any log messages to the structured logger at Error level.
 
+	/*
 	// Use the httprouter instance returned by app.routes() as the server handler.
 	srv := &http.Server{
 		Addr:         fmt.Sprintf(":%d", cfg.port),
@@ -158,6 +157,14 @@ func main() {
 	err = srv.ListenAndServe()
 	logger.Error(err.Error())
 	os.Exit(1)
+	*/
+	
+	// Call app.serve() to start the server.
+  err = app.serve()   
+  if err != nil {   
+    logger.Error(err.Error())    
+    os.Exit(1)   
+  } 
 }
 
 
