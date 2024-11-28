@@ -108,9 +108,9 @@ func main() {
   // make sure to replace the default values for smtp-username and smtp-password    
   // with your own Mailtrap credentials.
   flag.StringVar(&cfg.smtp.host, "smtp-host", "sandbox.smtp.mailtrap.io", "SMTP host")
-  flag.IntVar(&cfg.smtp.port, "smtp-port", 25, "SMTP port")     
-  flag.StringVar(&cfg.smtp.username, "smtp-username", "aaafdab8446217979", "SMTP username")  
-  flag.StringVar(&cfg.smtp.password, "smtp-password", "aaa746d901816952f", "SMTP password")  
+  flag.IntVar(&cfg.smtp.port, "smtp-port", 2525, "SMTP port")     
+  flag.StringVar(&cfg.smtp.username, "smtp-username", "1800b43b02b3f4", "SMTP username")  
+  flag.StringVar(&cfg.smtp.password, "smtp-password", "f73535518eac82", "SMTP password")  
   flag.StringVar(&cfg.smtp.sender, "smtp-sender", "Greenlight <no-reply@greenlight.nicolasleigh.net>", "SMTP sender") 
 
 	flag.Parse()
