@@ -6,6 +6,7 @@ import (
 	"flag"
 	"log/slog"
 	"os"
+	"sync"
 	"time"
 
 	// Import the pq driver so that it can register itself with the database/sql
@@ -64,11 +65,16 @@ type config struct {
 // logger, but it will grow to include a lot more as our build progresses.
 
 // Add a models field to hold our new Models struct.
+
+// Include a sync.WaitGroup in the application struct. The zero-value for a 
+// sync.WaitGroup type is a valid sync.WaitGroup with a 'counter' value of 0, 
+// so we don't need to do anything else to initialize it before we can use it.
 type application struct {
 	config config
 	logger *slog.Logger
 	models data.Models 
 	mailer mailer.Mailer  // Update the application struct to hold a new Mailer instance.
+  wg     sync.WaitGroup 
 }
 
 func main() {
