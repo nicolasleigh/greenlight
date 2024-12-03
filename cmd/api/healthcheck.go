@@ -2,7 +2,6 @@ package main
 
 import (
 	"net/http"
-	"time"
 )
 
 /*
@@ -84,7 +83,7 @@ func (app *application) healthcheckHandler(w http.ResponseWriter, r *http.Reques
 	}
 
   // Add a 4 second delay to test graceful shutdown
-  time.Sleep(4 * time.Second)
+  // time.Sleep(4 * time.Second)
 
 	err := app.writeJSON(w, http.StatusOK, env, nil)
 
