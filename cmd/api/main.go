@@ -102,7 +102,11 @@ func main() {
 
 	// Use the value of the GREENLIGHT_DB_DSN environment variable as the default value  
   // for our db-dsn command-line flag.
-  flag.StringVar(&cfg.db.dsn, "db-dsn", os.Getenv("GREENLIGHT_DB_DSN"), "PostgreSQL DSN") 
+  // flag.StringVar(&cfg.db.dsn, "db-dsn", os.Getenv("GREENLIGHT_DB_DSN"), "PostgreSQL DSN") 
+
+  // Use the empty string "" as the default value for the db-dsn command-line flag, 
+  // rather than os.Getenv("GREENLIGHT_DB_DSN") like we were previously.
+  flag.StringVar(&cfg.db.dsn, "db-dsn", "", "PostgreSQL DSN")  
 
 	// Read the connection pool settings from command-line flags into the config struct.
   // Notice that the default values we're using are the ones we discussed above?    
