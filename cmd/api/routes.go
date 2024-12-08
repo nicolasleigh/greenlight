@@ -27,46 +27,46 @@ func (app *application) routes() http.Handler {
 	router.HandlerFunc(http.MethodGet, "/v1/healthcheck", app.healthcheckHandler)
 
 	/*
-	// Add the route for the GET /v1/movies endpoint.
-	router.HandlerFunc(http.MethodGet, "/v1/movies", app.listMoviesHandler)  
-	router.HandlerFunc(http.MethodPost, "/v1/movies", app.createMovieHandler)
-	router.HandlerFunc(http.MethodGet, "/v1/movies/:id", app.showMovieHandler)
-	// Add the route for the PUT /v1/movies/:id endpoint.
-	// router.HandlerFunc(http.MethodPut, "/v1/movies/:id", app.updateMovieHandler)  
+		// Add the route for the GET /v1/movies endpoint.
+		router.HandlerFunc(http.MethodGet, "/v1/movies", app.listMoviesHandler)
+		router.HandlerFunc(http.MethodPost, "/v1/movies", app.createMovieHandler)
+		router.HandlerFunc(http.MethodGet, "/v1/movies/:id", app.showMovieHandler)
+		// Add the route for the PUT /v1/movies/:id endpoint.
+		// router.HandlerFunc(http.MethodPut, "/v1/movies/:id", app.updateMovieHandler)
 
-	// Require a PATCH request, rather than PUT.
-	router.HandlerFunc(http.MethodPatch, "/v1/movies/:id", app.updateMovieHandler)  
-	// Add the route for the DELETE /v1/movies/:id endpoint.
-	router.HandlerFunc(http.MethodDelete, "/v1/movies/:id", app.deleteMovieHandler) 
+		// Require a PATCH request, rather than PUT.
+		router.HandlerFunc(http.MethodPatch, "/v1/movies/:id", app.updateMovieHandler)
+		// Add the route for the DELETE /v1/movies/:id endpoint.
+		router.HandlerFunc(http.MethodDelete, "/v1/movies/:id", app.deleteMovieHandler)
 	*/
 
 	/*
-	// Use the requireActivatedUser() middleware on our five /v1/movies** endpoints.
-  router.HandlerFunc(http.MethodGet, "/v1/movies", app.requireActivatedUser(app.listMoviesHandler))    
-  router.HandlerFunc(http.MethodPost, "/v1/movies", app.requireActivatedUser(app.createMovieHandler))   
-  router.HandlerFunc(http.MethodGet, "/v1/movies/:id", app.requireActivatedUser(app.showMovieHandler))  
-  router.HandlerFunc(http.MethodPatch, "/v1/movies/:id", app.requireActivatedUser(app.updateMovieHandler)) 
-  router.HandlerFunc(http.MethodDelete, "/v1/movies/:id", app.requireActivatedUser(app.deleteMovieHandler)) 
+		// Use the requireActivatedUser() middleware on our five /v1/movies** endpoints.
+	  router.HandlerFunc(http.MethodGet, "/v1/movies", app.requireActivatedUser(app.listMoviesHandler))
+	  router.HandlerFunc(http.MethodPost, "/v1/movies", app.requireActivatedUser(app.createMovieHandler))
+	  router.HandlerFunc(http.MethodGet, "/v1/movies/:id", app.requireActivatedUser(app.showMovieHandler))
+	  router.HandlerFunc(http.MethodPatch, "/v1/movies/:id", app.requireActivatedUser(app.updateMovieHandler))
+	  router.HandlerFunc(http.MethodDelete, "/v1/movies/:id", app.requireActivatedUser(app.deleteMovieHandler))
 	*/
 
-	// Use the requirePermission() middleware on each of the /v1/movies** endpoints,  
-  // passing in the required permission code as the first parameter.
-  router.HandlerFunc(http.MethodGet, "/v1/movies", app.requirePermission("movies:read", app.listMoviesHandler))   
-  router.HandlerFunc(http.MethodPost, "/v1/movies", app.requirePermission("movies:write", app.createMovieHandler))   
-  router.HandlerFunc(http.MethodGet, "/v1/movies/:id", app.requirePermission("movies:read", app.showMovieHandler))  
-  router.HandlerFunc(http.MethodPatch, "/v1/movies/:id", app.requirePermission("movies:write", app.updateMovieHandler)) 
-  router.HandlerFunc(http.MethodDelete, "/v1/movies/:id", app.requirePermission("movies:write", app.deleteMovieHandler)) 
+	// Use the requirePermission() middleware on each of the /v1/movies** endpoints,
+	// passing in the required permission code as the first parameter.
+	router.HandlerFunc(http.MethodGet, "/v1/movies", app.requirePermission("movies:read", app.listMoviesHandler))
+	router.HandlerFunc(http.MethodPost, "/v1/movies", app.requirePermission("movies:write", app.createMovieHandler))
+	router.HandlerFunc(http.MethodGet, "/v1/movies/:id", app.requirePermission("movies:read", app.showMovieHandler))
+	router.HandlerFunc(http.MethodPatch, "/v1/movies/:id", app.requirePermission("movies:write", app.updateMovieHandler))
+	router.HandlerFunc(http.MethodDelete, "/v1/movies/:id", app.requirePermission("movies:write", app.deleteMovieHandler))
 
 	// Add the route for the POST /v1/users endpoint.
-  router.HandlerFunc(http.MethodPost, "/v1/users", app.registerUserHandler) 
+	router.HandlerFunc(http.MethodPost, "/v1/users", app.registerUserHandler)
 	// Add the route for the PUT /v1/users/activated endpoint.
-  router.HandlerFunc(http.MethodPut, "/v1/users/activated", app.activateUserHandler) 
+	router.HandlerFunc(http.MethodPut, "/v1/users/activated", app.activateUserHandler)
 
 	// Add the route for the POST /v1/tokens/authentication endpoint.
-  router.HandlerFunc(http.MethodPost, "/v1/tokens/authentication", app.createAuthenticationTokenHandler)
+	router.HandlerFunc(http.MethodPost, "/v1/tokens/authentication", app.createAuthenticationTokenHandler)
 
 	// Register a new GET /debug/vars endpoint pointing to the expvar handler.
-  router.Handler(http.MethodGet, "/debug/vars", expvar.Handler()) 
+	router.Handler(http.MethodGet, "/debug/vars", expvar.Handler())
 
 	// Return the httprouter instance.
 	// return router
@@ -75,14 +75,14 @@ func (app *application) routes() http.Handler {
 	// return app.recoverPanic(router)
 
 	// Wrap the router with the rateLimit() middleware.
-	// return app.recoverPanic(app.rateLimit(router)) 
+	// return app.recoverPanic(app.rateLimit(router))
 
 	// Use the authenticate() middleware on all requests.
-  // return app.recoverPanic(app.rateLimit(app.authenticate(router)))
+	// return app.recoverPanic(app.rateLimit(app.authenticate(router)))
 
 	// Add the enableCORS() middleware.
-  // return app.recoverPanic(app.enableCORS(app.rateLimit(app.authenticate(router)))) 
+	// return app.recoverPanic(app.enableCORS(app.rateLimit(app.authenticate(router))))
 
 	// Use the new metrics() middleware at the start of the chain.
-  return app.metrics(app.recoverPanic(app.enableCORS(app.rateLimit(app.authenticate(router)))))
+	return app.metrics(app.recoverPanic(app.enableCORS(app.rateLimit(app.authenticate(router)))))
 }

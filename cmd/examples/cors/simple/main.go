@@ -1,14 +1,14 @@
-// File: cmd/examples/cors/simple/main.go 
+// File: cmd/examples/cors/simple/main.go
 
-package main 
+package main
 
-import (  
-  "flag"   
-  "log"    
-  "net/http" 
-) 
+import (
+	"flag"
+	"log"
+	"net/http"
+)
 
-// Define a string constant containing the HTML for the webpage. This consists of a <h1> 
+// Define a string constant containing the HTML for the webpage. This consists of a <h1>
 // header tag, and some JavaScript which fetches the JSON from our GET /v1/healthcheck
 // endpoint and writes it to inside the <div id="output"></div> element.
 const html = `
@@ -37,17 +37,17 @@ const html = `
 </body> 
 </html>`
 
-func main() {   
-  // Make the server address configurable at runtime via a command-line flag.
-  addr := flag.String("addr", ":9000", "Server address")    
-  flag.Parse()   
-  
-  log.Printf("starting server on %s", *addr)  
-  
-  // Start a HTTP server listening on the given address, which responds to all   
-  // requests with the webpage HTML above.
-  err := http.ListenAndServe(*addr, http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {   
-    w.Write([]byte(html))    
-  }))
-  log.Fatal(err) 
+func main() {
+	// Make the server address configurable at runtime via a command-line flag.
+	addr := flag.String("addr", ":9000", "Server address")
+	flag.Parse()
+
+	log.Printf("starting server on %s", *addr)
+
+	// Start a HTTP server listening on the given address, which responds to all
+	// requests with the webpage HTML above.
+	err := http.ListenAndServe(*addr, http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte(html))
+	}))
+	log.Fatal(err)
 }
