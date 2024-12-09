@@ -5,6 +5,7 @@ import (
 	"database/sql"
 	"expvar"
 	"flag"
+	"fmt"
 	"log/slog"
 	"os"
 	"runtime"
@@ -18,12 +19,18 @@ import (
 	_ "github.com/lib/pq"
 	"greenlight.nicolasleigh.net/internal/data"
 	"greenlight.nicolasleigh.net/internal/mailer"
+	"greenlight.nicolasleigh.net/internal/vcs"
 )
 
 // Declare a string containing the application version number. Later in the book we'll
 // generate this automatically at build time, but for now we'll just store the version
 // number as a hard-coded global constant.
-const version = "1.0.0"
+// const version = "1.0.0"
+
+// Make version a variable (rather than a constant) and set its value to vcs.Version().
+var (    
+  version = vcs.Version() 
+)
 
 // Define a config struct to hold all the configuration settings for our application.
 // For now, the only configuration settings will be the network port that we want the
@@ -141,7 +148,17 @@ func main() {
 		return nil
 	})
 
+	// Create a new version boolean flag with the default value of false.
+  displayVersion := flag.Bool("version", false, "Display version and exit") 
+
 	flag.Parse()
+
+	// If the version flag value is true, then print out the version number and  
+  // immediately exit.
+  if *displayVersion {    
+    fmt.Printf("Version:\t%s\n", version)   
+    os.Exit(0)   
+  }
 
 	// Initialize a new structured logger which writes log entries to the standard out
 	// stream.
